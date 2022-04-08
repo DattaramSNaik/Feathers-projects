@@ -1,0 +1,38 @@
+Installation of feathers js :-
+
+-> npm install @feathersjs/cli -g
+
+-> feathers --version 
+###########################################################################
+
+-> feathers generate app
+? Do you want to use JavaScript or TypeScript? JavaScript
+? Project name movie-rental-demo-feathers
+? Description
+? What folder should the source files live in? src
+? Which package manager are you using (has to be installed globally)? npm
+? What type of API are you making? REST, Realtime via Socket.io
+? Which testing framework do you prefer? Jest
+? This app uses authentication Yes
+? Which coding style do you want to use? ESLint
+? What authentication strategies do you want to use? (See API docs for all 180+ supported oAuth providers) Userna
+? What is the name of the user (entity) service? users
+? What kind of service is it? Mongoose
+? What is the database connection string? mongodb://localhost:27017/movie_rental_demo_feathers
+
+############################################################################
+
+npm install joi
+npm install @feathers-plus/validate-joi-mongodb
+npm install feathers-validate-joi
+
+##########################################################################
+
+Creating Genres Feathers - >(services)
+--> feathers generate service
+? What kind of service is it? Mongoose
+? What is the name of the service? genres
+? Which path should the service be registered on? /genres
+? Does the service require authentication? Yes
+
+##########################################################################
