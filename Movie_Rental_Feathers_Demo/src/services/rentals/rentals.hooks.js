@@ -1,15 +1,25 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
+const { schema } = require("./rentals.model");
 const validate = require("feathers-validate-joi");
-const { schema } = require("./customers.model");
+const fetchMovie = require("./hooks/fetchMovie");
+const fetchCustomer = require("./hooks/fetchCustomer");
+const setRentalFee = require("./hooks/setRentalFee");
+const decreaseNumberInStock = require("./hooks/decreaseNumberInStock");
 const admin = require("../../../hooks/admin");
 module.exports = {
   before: {
+    //authenticate("jwt")
     all: [],
     find: [],
     get: [],
-    create: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
-    update: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
-    patch: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
+    create: [
+      validate.form(schema, { abortEarly: false }),
+      fetchMovie(),
+      fetchCustomer(),
+      setRentalFee(),
+    ],
+    update: [],
+    patch: [],
     remove: [authenticate("jwt"), admin()],
   },
 
@@ -17,7 +27,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [decreaseNumberInStock()],
     update: [],
     patch: [],
     remove: [],

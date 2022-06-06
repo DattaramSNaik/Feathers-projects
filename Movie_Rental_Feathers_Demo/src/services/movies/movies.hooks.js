@@ -1,15 +1,21 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
+const { schema } = require("./movies.model");
 const validate = require("feathers-validate-joi");
-const { schema } = require("./customers.model");
+const fetchGenre = require("./hooks/fetchGenre");
 const admin = require("../../../hooks/admin");
 module.exports = {
   before: {
+    //authenticate("jwt")
     all: [],
     find: [],
     get: [],
-    create: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
-    update: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
-    patch: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
+    create: [
+      authenticate("jwt"),
+      validate.form(schema, { abortEarly: false }),
+      fetchGenre(),
+    ],
+    update: [],
+    patch: [],
     remove: [authenticate("jwt"), admin()],
   },
 

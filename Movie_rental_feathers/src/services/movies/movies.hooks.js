@@ -2,6 +2,7 @@ const { authenticate } = require("@feathersjs/authentication").hooks;
 const { schema } = require("../movies/movies.model");
 const validate = require("feathers-validate-joi");
 const fetchGenre = require("./hooks/fetchGenre");
+const admin = require("../../../hooks/admin");
 module.exports = {
   before: {
     all: [],
@@ -17,8 +18,8 @@ module.exports = {
       validate.form(schema, { abortEarly: false }),
       fetchGenre(),
     ],
-    patch: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
-    remove: [authenticate("jwt")],
+    patch: [],
+    remove: [authenticate("jwt"), admin()],
   },
 
   after: {

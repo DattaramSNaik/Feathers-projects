@@ -36,3 +36,14 @@ Creating Genres Feathers - >(services)
 ? Does the service require authentication? Yes
 
 ##########################################################################
+
+login path :-
+http://localhost:3030/authentication
+used body
+{
+    
+    "email":"naikS07726@gmail.com",
+    "password":"Naik07726",
+    "strategy":"local"
+    
+}

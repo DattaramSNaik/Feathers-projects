@@ -1,6 +1,7 @@
 const { authenticate } = require("@feathersjs/authentication").hooks;
 const validate = require("feathers-validate-joi");
 const { schema } = require("./genres.model");
+const admin = require("../../../hooks/admin");
 module.exports = {
   before: {
     //authenticate("jwt")
@@ -10,7 +11,7 @@ module.exports = {
     create: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
     update: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
     patch: [authenticate("jwt"), validate.form(schema, { abortEarly: false })],
-    remove: [authenticate("jwt")],
+    remove: [authenticate("jwt"), admin()],
   },
 
   after: {
